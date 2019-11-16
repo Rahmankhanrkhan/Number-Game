@@ -1,19 +1,27 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import Card from '../components/Card';
+import Input from '../components/Input';
 
-const StartGameScreen = props => {
+
+
+const StartGameScreen = () => {
     return (
         <View style={styles.screen}>
             <Text style={styles.title} > Start Game screen!! </Text>
-            <View style = {styles.InputContainer} >
-                <Text> Select a Number! </Text>
-                <TextInput />
+            <Text> Select a Number! </Text>
+
+            <Card style={styles.inputContainer}>
+                <Input 
+                keyboardType = 'number-pad'
+                style = {styles.input}  />
                 <View style={styles.buttonContainer} >
-                    <Button title='Reset'   onPress={() => { }} />
-                    <Button title='Confirm' onPress={() => { }} />
+                    <Button color='#c74657' title='Reset' onPress={() => { }} />
+                    <Button color='#4ecf71' title='Confirm' onPress={() => { }} />
                 </View>
-            </View>
+            </Card>
         </View>
+
     );
 };
 
@@ -23,16 +31,25 @@ const styles = StyleSheet.create({
         padding: 10,
         alignItems: 'center'
     },
-    title : {
-        fontSize : 20,
-        marginVertical : 10 
+    title: {
+        fontSize: 20,
+        marginVertical: 10
     },
-    InputContainer : {},
-    buttonContainer : {
-        flexDirection : 'row',
-        width : '100%',
-        justifyContent : 'space-between',
-        paddingHorizontal : 15
+    inputContainer: {
+        width: 300,
+        maxWidth: '80%',
+        alignItems: 'center',
+
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        width: '100%',
+        justifyContent: 'space-between',
+
+    },
+    input : {
+        width : 100,
+        textAlign : 'center'
     }
 
 });
