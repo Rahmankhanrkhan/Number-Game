@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import Card from '../components/Card';
 import Input from '../components/Input';
+import NumberContainer from '../components/NumberContainer';
+
 
 const StartGameScreen = () => {
     const [enteredValue, setEnteredValue] = useState('');
@@ -19,7 +21,13 @@ const StartGameScreen = () => {
 
     const confirmHandler = () => {
         const chosenNumber = parseInt(enteredValue);
-        if (isNaN(chosenNumber) ||  chosenNumber > 99 || chosenNumber === 0  ) {
+        if (isNaN(chosenNumber) || chosenNumber > 99 || chosenNumber === 0) {
+            Alert.alert('Invalid !', 'Enter between 0 and 100..',
+                [{
+                    text: 'okay',
+                    style: 'destructive',
+                    onPress: resetHandler
+                }]);
             return;
         };
         setConfirmed(true);
@@ -30,7 +38,12 @@ const StartGameScreen = () => {
     let confirmedOutput;
 
     if (confirmed) {
-        confirmedOutput = <Text> Chosen Number : {selectedNumber} </Text>
+        confirmedOutput = (
+            <Card style= {styles.summaryContainer} >
+                <Text> You selected </Text>
+                <NumberContainer  > {selectedNumber} </NumberContainer>
+            </Card>
+        )
     }
 
     return (
@@ -39,8 +52,8 @@ const StartGameScreen = () => {
         }}
         >
             <View style={styles.screen}>
-                <Text style={styles.title} > Start Game screen!! </Text>
-                <Text> Type a Number! </Text>
+                <Text style={styles.title} > Type a Number! </Text>
+                
 
                 <Card style={styles.inputContainer}>
                     <Input
@@ -49,7 +62,7 @@ const StartGameScreen = () => {
                         maxLength={2}
                         keyboardType='number-pad'
                         style={styles.input}
-                        placeholder = 'Enter between 0 and 100..'
+                        placeholder='Enter between 0 and 100..'
                         onChangeText={inputHandler}
                         value={enteredValue}
                     />
@@ -83,15 +96,19 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         width: '100%',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between'
 
     },
     input: {
         width: 200,
         textAlign: 'center'
 
-    }
+    },
+    summaryContainer: {
+        marginTop: 25,
+        alignItems : 'center'
 
+    }
 });
 
 export default StartGameScreen;
