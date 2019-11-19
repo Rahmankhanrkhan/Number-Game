@@ -11,11 +11,11 @@ const Card = props => {
 
 const styles = StyleSheet.create({
     card: {
-        shadowColor: 'black',
-        shadowOpacity: 0.26,
-        shadowOffset: { width: 0, height: 2 },
+        shadowColor: 'red',
+        shadowOpacity: 0.8,
+        shadowOffset: { width: 0, height: 100 },
         shadowRadius: 20,
-        elevation: 5,
+        elevation: 10,
         backgroundColor: 'white',
         padding: 20,
         borderRadius: 10

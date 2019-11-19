@@ -4,8 +4,7 @@ import Card from '../components/Card';
 import Input from '../components/Input';
 import NumberContainer from '../components/NumberContainer';
 
-
-const StartGameScreen = () => {
+const StartGameScreen = (props) => {
     const [enteredValue, setEnteredValue] = useState('');
     const [confirmed, setConfirmed] = useState(false);
     const [selectedNumber, setSelectedNumber] = useState();
@@ -33,15 +32,31 @@ const StartGameScreen = () => {
         setConfirmed(true);
         setSelectedNumber(parseInt(enteredValue));
         setEnteredValue('');
+        Keyboard.dismiss();
+
     };
 
     let confirmedOutput;
 
     if (confirmed) {
         confirmedOutput = (
-            <Card style= {styles.summaryContainer} >
+            <Card style={styles.summaryContainer} >
                 <Text> You selected </Text>
                 <NumberContainer  > {selectedNumber} </NumberContainer>
+                <View
+                    style={styles.outputButtoncontainer}
+                >
+                    <Button
+                        color='#c74657'
+                        title='Reset'
+                        onPress={resetHandler} />
+                    <Button
+                        color='orange'
+                        title='Start'
+                        onPress={() => props.onStartGame(selectedNumber)} />
+
+                </View>
+
             </Card>
         )
     }
@@ -53,7 +68,7 @@ const StartGameScreen = () => {
         >
             <View style={styles.screen}>
                 <Text style={styles.title} > Type a Number! </Text>
-                
+
 
                 <Card style={styles.inputContainer}>
                     <Input
@@ -89,7 +104,7 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         width: 300,
-        maxWidth: '80%',
+        maxWidth: '70%',
         alignItems: 'center',
 
     },
@@ -106,8 +121,15 @@ const styles = StyleSheet.create({
     },
     summaryContainer: {
         marginTop: 25,
-        alignItems : 'center'
+        alignItems: 'center'
 
+    },
+    outputButtoncontainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: 200,
+        maxWidth: '70%',
+        marginVertical: 20
     }
 });
 
